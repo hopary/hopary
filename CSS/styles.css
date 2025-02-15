@@ -8,7 +8,25 @@ body {
     flex-direction: column;
     min-height: 100vh;
     /* Ensure that the page fills at least the height of the viewport. */
+    overflow: hidden;
 }
+
+.star {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.7245) 0%, rgba(255, 255, 255, 0) 100%);
+}
+
+@keyframes twinkle {
+    from {
+        opacity: 0.7;
+    }
+    to {
+        opacity: 0.35;
+    }
+}
+
 
 .container {
     width: 80%;

@@ -19,6 +19,29 @@
      <!-- 页脚占位 -->
     <div id="footer"></div>
 
+    <!-- Insert a star-placeholder at the end of the <body> tag. -->
+        <div id="star-placeholder"></div>
+    
+        <script>
+            // 使用 fetch API 加载公共脚本文件
+            fetch('/components/star.html')
+               .then(response => response.text())
+               .then(html => {
+                    // 提取 script 标签的内容
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(html, 'text/html');
+                    const scripts = doc.querySelectorAll('script');
+    
+                    // 将提取的 script 标签插入到页面中
+                    const placeholder = document.getElementById('star-placeholder');
+                    scripts.forEach(script => {
+                        const newScript = document.createElement('script');
+                        newScript.textContent = script.textContent;
+                        placeholder.appendChild(newScript);
+                    });
+                });
+        </script>
+
     <!-- 加载公共模块 -->
     <script>
         // 加载导航栏（注意路径中的 ../）
