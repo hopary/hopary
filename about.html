@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <!-- Insert a navigation bar at the beginning of the <body> tag.-->
+    <div id="navbar"></div>
+
+
+
+    <main class="container">
+        <h2>关于我</h2>
+        <p>我是一个热爱吃饭的人，喜欢睡觉和上厕所。</p>
+    </main>
+
+    <!-- Insert a footer at the end of the <body> tag. -->
+    <div id="footer"></div>
+
+    <!-- Add JavaScript at the bottom of the page. -->
+    <script>
+        // Load the navigation bar.
+        fetch('components/navbar.html')
+            .then(response => response.text())
+            .then(html => document.getElementById('navbar').innerHTML = html);
+
+        // Load the footer.
+        fetch('components/footer.html')
+            .then(response => response.text())
+            .then(html => document.getElementById('footer').innerHTML = html);
+    </script>
+</body>
+
+</html>
