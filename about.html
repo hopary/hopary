@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About</title>
-    <link rel="stylesheet" href="css/styles.css">
+    
+    <link rel="stylesheet" href="/hopary/css/styles.css">
 </head>
 
 <body>
@@ -27,7 +28,7 @@
     
         <script>
             // 使用 fetch API 加载公共脚本文件
-            fetch('components/star.html')
+            fetch('/hopary/components/star.html')
                .then(response => response.text())
                .then(html => {
                     // 提取 script 标签的内容
@@ -48,12 +49,12 @@
     <!-- Add JavaScript at the bottom of the page. -->
     <script>
         // Load the navigation bar.
-        fetch('components/navbar.html')
+        fetch('/hopary/components/navbar.html')
             .then(response => response.text())
             .then(html => document.getElementById('navbar').innerHTML = html);
 
         // Load the footer.
-        fetch('components/footer.html')
+        fetch('/hopary/components/footer.html')
             .then(response => response.text())
             .then(html => document.getElementById('footer').innerHTML = html);
     </script>
