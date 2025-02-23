@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alog</title>
+    <title>About</title>
     
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -14,10 +14,10 @@
     <div id="navbar"></div>
 
 
-    <!-- 文章列表 -->
+
     <main class="container">
-        <h2>最新文章</h2>
-        <div class="post-list"> </div>
+        <h2>关于我</h2>
+        <p>我是一个热爱吃饭的人，喜欢睡觉和上厕所。</p>
     </main>
 
     <!-- Insert a footer at the end of the <body> tag. -->
@@ -52,29 +52,12 @@
         fetch('components/navbar.html')
             .then(response => response.text())
             .then(html => document.getElementById('navbar').innerHTML = html);
+
         // Load the footer.
         fetch('components/footer.html')
             .then(response => response.text())
             .then(html => document.getElementById('footer').innerHTML = html);
     </script>
-
-    <!-- 动态获取文章列表 -->
-    <script>
-        fetch('data/posts.json')
-            .then(response => response.json())
-            .then(posts => {
-                const list = document.querySelector('.post-list');
-                list.innerHTML = posts.map(post => `
-                    <li>
-                        <a href="post.html?id=${post.id}">${post.title}</a>
-                        <span class="date">${post.date}</span>
-                    </li>
-                `).join('');
-            });
-    </script>
-
-
-
 </body>
 
 </html>
