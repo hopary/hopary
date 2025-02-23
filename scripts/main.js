@@ -1,0 +1,124 @@
+// 从外部文件加载文章数据
+let articles = [];
+
+// 页面路由配置
+const routes = {
+    '#home': renderHome,
+    '#articles': renderArticles,
+    '#about': renderAbout,
+    '#article': renderArticle
+};
+
+// 初始化
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadArticles();
+    createStars();
+    handleRouting();
+    window.addEventListener('hashchange', handleRouting);
+    disableDevTools();
+});
+
+// 加载文章数据
+async function loadArticles() {
+    try {
+        const response = await fetch('articles.json');
+        articles = await response.json();
+    } catch (error) {
+        console.error('加载文章失败:', error);
+    }
+}
+
+// 路由处理
+function handleRouting() {
+    const [route, id] = window.location.hash.split('/');
+    const handler = routes[route] || renderHome;
+    handler(id);
+}
+
+// 渲染首页
+function renderHome() {
+    document.getElementById('content').innerHTML = `
+        <div class="slogan">
+            <h1>探索知识与灵感</h1>
+            <p>在星辰之间寻找智慧的光芒</p>
+        </div>
+    `;
+}
+
+// 渲染文章列表
+function renderArticles() {
+    const listItems = articles.map(article => `
+        <li class="article-item">
+            <a href="#article/${article.id}" class="article-link">
+                ${article.title} - ${article.date}
+            </a>
+        </li>
+    `).join('');
+    
+    document.getElementById('content').innerHTML = `
+        <h2>最新文章</h2>
+        <ul class="article-list">${listItems}</ul>
+    `;
+}
+
+// 渲染单篇文章
+function renderArticle(id) {
+    const article = articles.find(a => a.id == id);
+    if (!article) return renderArticles();
+    
+    document.getElementById('content').innerHTML = `
+        <article>
+            <h2>${article.title}</h2>
+            <p>${article.date}</p>
+            <div class="article-content">${article.content}</div>
+        </article>
+    `;
+}
+
+// 渲染关于页面
+function renderAbout() {
+    document.getElementById('content').innerHTML = `
+        <div class="about-content">
+            <h2>关于Alog</h2>
+            <p>Alog是一个专注于分享知识和见解的个人博客。</p>
+            <p>联系方式：contact@alog.com</p>
+            <p>地址：上海市浦东新区</p>
+        </div>
+    `;
+}
+
+// 创建星星背景
+function createStars() {
+    const container = document.getElementById('bg-effects');
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.width = Math.random() * 3 + 'px';
+        star.style.height = star.style.width;
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 1.5 + 's';
+        container.appendChild(star);
+    }
+}
+
+// 禁用开发者工具和复制功能
+function disableDevTools() {
+    // 禁用右键菜单
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // 禁用快捷键
+    document.addEventListener('keydown', (e) => {
+        // 禁用 F12
+        if (e.key === 'F12') e.preventDefault();
+        
+        // 禁用 Ctrl+Shift+I
+        if (e.ctrlKey && e.shiftKey && e.key === 'I') e.preventDefault();
+        
+        // 禁用 Ctrl+U
+        if (e.ctrlKey && e.key === 'u') e.preventDefault();
+        
+        // 禁用 Ctrl+C
+        if (e.ctrlKey && e.key === 'c') e.preventDefault();
+    });
+}
