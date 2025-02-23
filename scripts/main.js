@@ -88,8 +88,8 @@ function renderAbout() {
         <div class="about-content">
             <h2>关于Alog</h2>
             <p>Alog是一个专注于分享知识和见解的个人博客。</p>
-            <p>联系方式：contact@alog.com</p>
-            <p>地址：上海市浦东新区</p>
+            <p>联系方式：qingfeng@alog.top</p>
+         
         </div>
     `;
 }
