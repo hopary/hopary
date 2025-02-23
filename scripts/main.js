@@ -1,6 +1,3 @@
-// 从外部文件加载文章数据
-let articles = [];
-
 // 页面路由配置
 const routes = {
     '#home': renderHome,
@@ -18,16 +15,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     disableDevTools();
 });
 
-// 加载文章数据
+// 加载文章数据（恢复手动ID）
 async function loadArticles() {
     try {
         const response = await fetch('articles.json');
         articles = await response.json();
-        articles.forEach((article, index) => {
-            article.id = new Date(article.date).getTime();
+        
+        // 检查ID唯一性
+        const idSet = new Set();
+        articles.forEach(article => {
+            if (!article.id) throw new Error(`文章"${article.title}"缺少ID`);
+            if (idSet.has(article.id)) throw new Error(`重复ID: ${article.id}`);
+            idSet.add(article.id);
         });
     } catch (error) {
-        console.error('加载文章失败:', error);
+        console.error('文章加载失败:', error);
+        alert('文章数据错误: ' + error.message);
     }
 }
 
