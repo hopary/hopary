@@ -5,8 +5,14 @@
     box-sizing: border-box;
 }
 
+html {
+    min-width: 320px;
+    min-height: 600px;
+    overflow: auto;
+}
+
 body {
-    min-height: 100vh;
+    min-height: 600px;
     position: relative;
     font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
     background: #000;
@@ -14,23 +20,31 @@ body {
     line-height: 1.5;
 }
 
-/* 公共导航样式 */
+/* 导航栏 */
 .nav-container {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: 1rem 0;
     background: #000;
     z-index: 1000;
+    box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+}
+
+.nav-inner {
+    width: 80%;
+    max-width: 1400px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #fff;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #e6e6e6;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
 }
 
 .nav-links {
@@ -40,11 +54,34 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #fff;
-    font-weight: 600; /* 加粗导航文字 */
+    color: #e6e6e6;
+    font-weight: 400;
+    font-size: 1.5rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+    transition: color 0.3s ease;
 }
 
-/* 主体内容容器 */
+.nav-links a:hover {
+    color: #ffffff;
+}
+
+/* 响应式布局 */
+@media (max-width: 768px) {
+    .nav-inner {
+        width: 80%;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+}
+
+/* 主体内容 */
 .content {
     position: relative;
     padding: 100px 0;
@@ -54,11 +91,78 @@ body {
     margin: 0 auto;
 }
 
-/* 响应式布局 */
-@media (max-width: 768px) {
-    .content {
-        width: 90%;
-    }
+/* 文字间距调整 */
+.slogan,
+.about-content,
+.article-content {
+    letter-spacing: 0.08em;
+}
+
+/* 首页标语 */
+.slogan {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    line-height: 2;
+}
+
+/* 文章列表 */
+.article-list-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+    letter-spacing: 0.05em;
+}
+
+.article-list {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.article-item {
+    margin: 0.4rem 0;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.article-link {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+.article-link:hover {
+    color: #a0a0a0;
+}
+
+/* 文章详情 */
+.article-content {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.article-date {
+    font-size: 0.9rem;
+    color: #888;
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+}
+
+/* 关于页面 */
+.about-content {
+    margin-top: 2rem;
+}
+
+.about-content p {
+    margin-top: 1rem;
+    text-indent: 2em;
 }
 
 /* 底部版权 */
@@ -73,52 +177,7 @@ body {
 }
 
 .footer small {
-    color: #aaa; /* 调暗版权信息颜色 */
-}
-
-/* 首页标语 */
-.slogan {
-    text-align: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* 文章样式 */
-.article-list {
-    list-style: none;
-    margin-top: 2rem;
-}
-
-.article-item {
-    margin: 1rem 0;
-    padding: 0.8rem 0;
-    border-bottom: 1px solid #333;
-}
-
-.article-link {
-    text-decoration: none;
-    color: #fff;
-    font-size: 1.2rem;
-}
-
-.article-content {
-    margin-top: 1.5rem;
-    font-size: 1rem;
-    line-height: 1.6; /* 调整文章内容行间距 */
-    white-space: pre-wrap;
-}
-
-/* 关于页面样式 */
-.about-content {
-    margin-top: 2rem;
-    line-height: 1.6; /* 调整关于页面行间距 */
-}
-
-.about-content p {
-    margin-top: 1rem;
-    text-indent: 2em;
+    color: #aaa;
 }
 
 /* 背景星星 */

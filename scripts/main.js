@@ -23,6 +23,9 @@ async function loadArticles() {
     try {
         const response = await fetch('articles.json');
         articles = await response.json();
+        articles.forEach((article, index) => {
+            article.id = new Date(article.date).getTime();
+        });
     } catch (error) {
         console.error('加载文章失败:', error);
     }
@@ -47,7 +50,8 @@ function renderHome() {
 
 // 渲染文章列表
 function renderArticles() {
-    const listItems = articles.map(article => `
+    const sortedArticles = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
+    const listItems = sortedArticles.map(article => `
         <li class="article-item">
             <a href="#article/${article.id}" class="article-link">
                 ${article.title} - ${article.date}
@@ -56,7 +60,7 @@ function renderArticles() {
     `).join('');
     
     document.getElementById('content').innerHTML = `
-        <h2>最新文章</h2>
+        <h2 class="article-list-title">最新文章</h2>
         <ul class="article-list">${listItems}</ul>
     `;
 }
@@ -69,7 +73,7 @@ function renderArticle(id) {
     document.getElementById('content').innerHTML = `
         <article>
             <h2>${article.title}</h2>
-            <p>${article.date}</p>
+            <p class="article-date">${article.date}</p>
             <div class="article-content">${article.content}</div>
         </article>
     `;
@@ -102,23 +106,15 @@ function createStars() {
     }
 }
 
-// 禁用开发者工具和复制功能
+// 禁用开发者工具和复制
 function disableDevTools() {
-    // 禁用右键菜单
     document.addEventListener('contextmenu', e => e.preventDefault());
-
-    // 禁用快捷键
     document.addEventListener('keydown', (e) => {
-        // 禁用 F12
-        if (e.key === 'F12') e.preventDefault();
-        
-        // 禁用 Ctrl+Shift+I
-        if (e.ctrlKey && e.shiftKey && e.key === 'I') e.preventDefault();
-        
-        // 禁用 Ctrl+U
-        if (e.ctrlKey && e.key === 'u') e.preventDefault();
-        
-        // 禁用 Ctrl+C
-        if (e.ctrlKey && e.key === 'c') e.preventDefault();
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.key === 'u') || 
+            (e.ctrlKey && e.key === 'c')) {
+            e.preventDefault();
+        }
     });
 }
