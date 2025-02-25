@@ -24,7 +24,8 @@ const routes = {
     '#home': renderHome,
     '#articles': renderArticles,
     '#about': renderAbout,
-    '#article': renderArticle
+    '#article': renderArticle,
+    '#more': renderMore
 };
 
 // 初始化
@@ -111,6 +112,17 @@ function renderAbout() {
             <h2>关于Alog</h2>
             <p>Alog是一个专注于分享知识和见解的个人博客。</p>
             <p>联系方式：qingfeng@alog.top</p>
+         
+        </div>
+    `;
+}
+
+// 渲染更多页面
+function renderMore() {
+    document.getElementById('content').innerHTML = `
+        <div class="more-content">
+            <p>待开发...</p>
+        
          
         </div>
     `;
