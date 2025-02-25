@@ -1,6 +1,3 @@
-// 从外部文件加载文章数据
-let articles = [];
-
 // 页面路由配置
 const routes = {
     '#home': renderHome,
@@ -15,32 +12,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     createStars();
     handleRouting();
     window.addEventListener('hashchange', handleRouting);
+    disableDevTools();
 });
 
-// 加载文章数据
+// 加载文章数据（恢复手动ID）
 async function loadArticles() {
     try {
         const response = await fetch('articles.json');
-        const text = await response.text();
-        articles = JSON.parse(text);
-        validateArticles();
+        articles = await response.json();
+        
+        // 检查ID唯一性
+        const idSet = new Set();
+        articles.forEach(article => {
+            if (!article.id) throw new Error(`文章"${article.title}"缺少ID`);
+            if (idSet.has(article.id)) throw new Error(`重复ID: ${article.id}`);
+            idSet.add(article.id);
+        });
     } catch (error) {
-        handleLoadingError(error);
+        console.error('文章加载失败:', error);
+        alert('文章数据错误: ' + error.message);
     }
-}
-
-function validateArticles() {
-    const idSet = new Set();
-    articles.forEach(article => {
-        if (!article.id) throw new Error(`文章"${article.title}"缺少ID`);
-        if (idSet.has(article.id)) throw new Error(`重复ID: ${article.id}`);
-        idSet.add(article.id);
-    });
-}
-
-function handleLoadingError(error) {
-    console.error('文章加载失败:', error);
-    alert('错误: ' + error.message);
 }
 
 // 路由处理
@@ -83,16 +74,11 @@ function renderArticle(id) {
     const article = articles.find(a => a.id == id);
     if (!article) return renderArticles();
     
-    const safeContent = article.content
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/\n/g, '<br>');
-    
     document.getElementById('content').innerHTML = `
         <article>
             <h2>${article.title}</h2>
             <p class="article-date">${article.date}</p>
-            <div class="article-content">${safeContent}</div>
+            <div class="article-content">${article.content}</div>
         </article>
     `;
 }
@@ -104,7 +90,7 @@ function renderAbout() {
             <h2>关于Alog</h2>
             <p>Alog是一个专注于分享知识和见解的个人博客。</p>
             <p>联系方式：qingfeng@alog.top</p>
-            
+         
         </div>
     `;
 }
@@ -122,4 +108,17 @@ function createStars() {
         star.style.animationDelay = Math.random() * 1.5 + 's';
         container.appendChild(star);
     }
+}
+
+// 禁用开发者工具和复制
+function disableDevTools() {
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'F12' || 
+            (e.ctrlKey && e.shiftKey && e.key === 'I') || 
+            (e.ctrlKey && e.key === 'u') || 
+            (e.ctrlKey && e.key === 'c')) {
+            e.preventDefault();
+        }
+    });
 }
