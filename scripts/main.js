@@ -1,3 +1,24 @@
+// 在现有代码前添加安全过滤
+async function loadArticles() {
+    const rawData = await fetch('articles.json');
+    const articles = await rawData.json();
+    
+    // 过滤无效数据
+    return articles.filter(article => 
+        article.id && 
+        article.title &&
+        article.date
+    );
+}
+
+// 渲染文章时添加内容消毒
+function renderArticle(content) {
+    return content
+        .replace(/</g, '&lt;')  // 防止XSS
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+}
+
 // 页面路由配置
 const routes = {
     '#home': renderHome,
@@ -122,3 +143,4 @@ function disableDevTools() {
         }
     });
 }
+

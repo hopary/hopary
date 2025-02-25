@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+        }
+
+        body {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            font-family: -apple-system, sans-serif;
+        }
+
+        #login {
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        textarea {
+            width: 100%;
+            height: 50vh;
+            padding: 10px;
+            border: 2px solid #eee;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="login">
+        <h2>访问验证</h2>
+        <input type="password" id="password" placeholder="输入管理密码">
+        <button onclick="verifyPassword()">验证</button>
+    </div>
+
+
+    <div id="editor" class="hidden">
+        <input type="text" id="title" placeholder="标题"><br>
+        <textarea id="content" placeholder="内容..."></textarea>
+        <button onclick="generateData()">生成更新代码</button>
+        <div id="output" class="hidden">
+
+            <textarea id="jsonOutput" readonly onclick="this.select()"></textarea>
+        </div>
+    </div>
+
+    <script>
+
+        async function verifyPassword() {
+            const inputHash = await sha256(document.getElementById('password').value);
+            const validHash = "5e80f2e7f97fd49d0140de7a53daaeb6bae630cf8ce68fbb0ca674208a957838"; // 密码"password"的哈希
+
+            if (inputHash === validHash) {
+                document.getElementById('login').classList.add('hidden');
+                document.getElementById('editor').classList.remove('hidden');
+            } else {
+                alert('error');
+            }
+        }
+
+        function generateUniqueId() {
+            const timestamp = Date.now().toString(36);
+            const randomStr = Math.random().toString(36).substr(2, 5);
+            return timestamp + randomStr;
+        }
+        async function generateData() {
+
+            const title = document.getElementById('title').value;
+            let content = document.getElementById('content').value;
+
+            content = content.replace(/\n/g, '\n');
+
+            const newArticle = {
+                id: generateUniqueId(),
+                title: title,
+                date: new Date().toISOString().slice(0, 10),
+                content: content
+            };
+
+            const existing = await fetch('/articles.json')
+                .then(r => r.json())
+                .catch(() => []);
+
+
+            const updatedData = [...existing, newArticle];
+
+
+            const jsonString = JSON.stringify(updatedData, null, 2);
+
+
+            document.getElementById('output').classList.remove('hidden');
+            document.getElementById('jsonOutput').value = jsonString;
+        }
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            return Array.from(new Uint8Array(hashBuffer))
+                .map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+    </script>
+
+
+
+</body>
+
+</html>
