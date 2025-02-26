@@ -58,7 +58,7 @@
 
         async function verifyPassword() {
             const inputHash = await sha256(document.getElementById('password').value);
-            const validHash = "5e80f2e7f97fd49d0140de7a53daaeb6bae630cf8ce68fbb0ca674208a957838"; // 密码"password"的哈希
+            const validHash = "5e80f2e7f97fd49d0140de7a53daaeb6bae630cf8ce68fbb0ca674208a957838"; 
 
             if (inputHash === validHash) {
                 document.getElementById('login').classList.add('hidden');
