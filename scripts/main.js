@@ -110,7 +110,7 @@ function renderAbout() {
     document.getElementById('content').innerHTML = `
         <div class="about-content">
             <h2>关于Alog</h2>
-            <p>Alog是一个专注于分享知识和见解的个人博客。</p>
+            <p>Alog是一个专注于分享知识和见解的博客网站。</p>
 <p>版权声明</p>
  
 <p>本站alog.top（以下简称“本站”）所有文章，包括但不限于原创内容、编辑整理内容，其版权均归本站所有。未经本站许可，任何单位及个人不得擅自复制、传播、篡改、演绎、转载、摘编或以其他任何方式使用这些文章。</p>
