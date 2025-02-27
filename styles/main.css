@@ -267,3 +267,54 @@ body {
         opacity: 1;
     }
 }
+
+/* 在main.css中添加 */
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-image {
+    height: 50px;  /* 提升基础高度，宽度自动等比缩放 */
+    width: auto;   /* 保持原始宽高比 */
+}
+
+
+
+/* 高分辨率屏幕优化 */
+@media 
+(-webkit-min-device-pixel-ratio: 2), 
+(min-resolution: 192dpi) {
+    .logo-image {
+        background-image: url('images/logo@2x.svg');
+        background-size: contain;
+    }
+}
+
+/* 可访问性隐藏文字 */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* hover效果 */
+.logo-image:hover {
+    opacity: 0.8;
+}
+
+@media screen and (min-width: 1024px) {
+    .logo-image {
+        height: 60px;  /* 在大屏幕上进一步放大 */
+    }
+}
+
+.logo-image {
+    max-height: 80px;  /* 最大高度限制 */
+}
