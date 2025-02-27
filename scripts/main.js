@@ -121,7 +121,7 @@ function renderAbout() {
 <p> 
 本站保留对本版权声明的最终解释权，并有权根据法律法规的变化以及实际情况对声明内容进行修改和调整 。修改后的声明将在本站公布，自公布之日起生效。</p>
          
-            <p>联系方式：supportg@alog.top</p>
+            <p>联系方式：support@alog.top</p>
          
         </div>
     `;
