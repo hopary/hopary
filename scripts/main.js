@@ -121,7 +121,7 @@ function renderAbout() {
 <p> 
 本站保留对本版权声明的最终解释权，并有权根据法律法规的变化以及实际情况对声明内容进行修改和调整 。修改后的声明将在本站公布，自公布之日起生效。</p>
          
-            <p>联系方式：qingfeng@alog.top</p>
+            <p>联系方式：supportg@alog.top</p>
          
         </div>
     `;
@@ -138,7 +138,7 @@ function renderMore() {
     `;
 }
 
-// 创建星星背景
+
 function createStars() {
     const container = document.getElementById('bg-effects');
     for (let i = 0; i < 100; i++) {
@@ -153,7 +153,7 @@ function createStars() {
     }
 }
 
-// 禁用开发者工具和复制
+
 function disableDevTools() {
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('keydown', (e) => {
