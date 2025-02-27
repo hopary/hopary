@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     disableDevTools();
 });
 
-// 加载文章数据（恢复手动ID）
+
 async function loadArticles() {
     try {
         const response = await fetch('articles.json');
@@ -63,7 +63,7 @@ function handleRouting() {
     handler(id);
 }
 
-// 渲染首页
+
 function renderHome() {
     document.getElementById('content').innerHTML = `
         <div class="slogan">
@@ -73,7 +73,7 @@ function renderHome() {
     `;
 }
 
-// 渲染文章列表
+
 function renderArticles() {
     const sortedArticles = articles.sort((a, b) => new Date(b.date) - new Date(a.date));
     const listItems = sortedArticles.map(article => `
@@ -91,7 +91,7 @@ function renderArticles() {
     `;
 }
 
-// 渲染单篇文章
+
 function renderArticle(id) {
     const article = articles.find(a => a.id == id);
     if (!article) return renderArticles();
@@ -105,7 +105,7 @@ function renderArticle(id) {
     `;
 }
 
-// 渲染关于页面
+
 function renderAbout() {
     document.getElementById('content').innerHTML = `
         <div class="about-content">
@@ -127,7 +127,7 @@ function renderAbout() {
     `;
 }
 
-// 渲染更多页面
+
 function renderMore() {
     document.getElementById('content').innerHTML = `
         <div class="more-content">
