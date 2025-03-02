@@ -276,7 +276,7 @@ body {
 }
 
 .logo-image {
-    padding-top:10px;
+    
     height: 50px;  /* 提升基础高度，宽度自动等比缩放 */
     width: auto;   /* 保持原始宽高比 */
 }
@@ -308,6 +308,7 @@ body {
 /* hover效果 */
 .logo-image:hover {
     opacity: 0.8;
+    max-height: 100px
 }
 
 @media screen and (min-width: 1024px) {
