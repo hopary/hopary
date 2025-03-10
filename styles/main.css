@@ -277,7 +277,7 @@ body {
 
 .logo-image {
     
-    height: 50px;  /* 提升基础高度，宽度自动等比缩放 */
+    height: 45px;  /* 提升基础高度，宽度自动等比缩放 */
     width: auto;   /* 保持原始宽高比 */
 }
 
@@ -289,7 +289,7 @@ body {
 (min-resolution: 192dpi) {
     .logo-image {
         background-image: url('images/logo@2x.svg');
-        background-size: contain;
+        background-size: 80%;
     }
 }
 
